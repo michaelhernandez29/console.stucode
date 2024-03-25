@@ -1,5 +1,6 @@
 import React from "react";
 import SignUp from "./pages/signup/index.js";
+import SignIn from "./pages/signin/index.js";
 
 const routes = [
   {
@@ -12,7 +13,7 @@ const routes = [
   },
   {
     path: "/signin",
-    element: <div>Sign In</div>,
+    element: <SignIn />,
   },
   {
     path: "/settings",
