@@ -6,6 +6,7 @@ extends:
   - plugin:react/recommended
   - plugin:jsx-a11y/recommended
   - plugin:prettier/recommended
+  - '@commitlint/config-conventional'
 parserOptions:
   ecmaVersion: latest
   sourceType: module

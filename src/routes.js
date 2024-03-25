@@ -1,4 +1,5 @@
 import React from "react";
+import SignUp from "./pages/SignUp/index.js";
 
 const routes = [
   {
@@ -7,7 +8,7 @@ const routes = [
   },
   {
     path: "/signup",
-    element: <div>Sign Up</div>,
+    element: <SignUp />,
   },
   {
     path: "/signin",
