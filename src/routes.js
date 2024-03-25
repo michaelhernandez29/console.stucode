@@ -1,5 +1,5 @@
 import React from "react";
-import SignUp from "./pages/SignUp/index.js";
+import SignUp from "./pages/signup/index.js";
 
 const routes = [
   {

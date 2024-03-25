@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import { Alert, Button, TextField } from "@mui/material";
 import * as Yup from "yup";
 
-import AuthLayout from "../../components/authLayout/index.js";
+import AuthLayout from "../../components/authlayout/index.js";
 import AuthService from "../../services/authService.js";
 
 const validationSchema = Yup.object().shape({
