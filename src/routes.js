@@ -1,11 +1,13 @@
 import React from "react";
+
+import Home from "./pages/home/index.js";
 import SignUp from "./pages/signup/index.js";
 import SignIn from "./pages/signin/index.js";
 
 const routes = [
   {
     path: "/",
-    element: <div>Home</div>,
+    element: <Home />,
   },
   {
     path: "/signup",
