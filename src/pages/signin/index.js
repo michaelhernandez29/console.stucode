@@ -1,19 +1,29 @@
 import React, { useState } from "react";
 import { Form, Formik } from "formik";
-import { Alert, Button, TextField } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
 import * as Yup from "yup";
 
 import HttpClient from "../../lib/axios.js";
 import AuthLayout from "../../components/authlayout/index.js";
 import AuthService from "../../services/authService.js";
+import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid format").required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  email: Yup.string()
+    .email("Formato inválido")
+    .required("El correo es obligatorio"),
+  password: Yup.string().required("La contraseña es obligatoria"),
 });
 
 const SignIn = () => {
   const [error, setError] = useState("");
+  const [remember, setRemember] = useState(false);
   const initialValues = { email: "", password: "" };
 
   const handleFormSubmit = async (values) => {
@@ -28,8 +38,10 @@ const SignIn = () => {
     }
   };
 
+  // const handleCheckbox = (event) => 
+
   return (
-    <AuthLayout title="Sign Up">
+    <AuthLayout title="Bienvenido de nuevo!">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -38,7 +50,7 @@ const SignIn = () => {
         {({ handleSubmit, touched, errors, handleChange, handleBlur }) => (
           <Form onSubmit={handleSubmit}>
             <TextField
-              label="Email"
+              label="Correo"
               variant="filled"
               name="email"
               fullWidth
@@ -50,7 +62,7 @@ const SignIn = () => {
               sx={{ mb: 2 }}
             />
             <TextField
-              label="Password"
+              label="Contraseña"
               variant="filled"
               name="password"
               fullWidth
@@ -61,13 +73,30 @@ const SignIn = () => {
               helperText={touched.password && errors.password}
               sx={{ mb: 2 }}
             />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Recuérdame"
+              sx={{ mb: 2 }}
+            />
             {error && (
               <Alert severity="error" sx={{ mb: 2 }}>
                 {error}
               </Alert>
             )}
             <Button type="submit" variant="contained" color="primary" fullWidth>
-              Sign up
+              Acceder a StuCode
+            </Button>
+            <Button
+              component={Link}
+              to="/signup"
+              variant="outlined"
+              color="primary"
+              fullWidth
+              sx={{
+                mt: 2,
+              }}
+            >
+              ¿No tienes cuenta? Regístrate
             </Button>
           </Form>
         )}

@@ -1,19 +1,30 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { Grid, Paper, Typography } from "@mui/material";
+import { CssBaseline, Grid, Paper } from "@mui/material";
 
-const AuthLayout = ({ title, children }) => {
+import logo from "../../assets/img/logo_background_purple.png";
+
+const AuthLayout = ({ children }) => {
   return (
-    <Grid container justifyContent="center" alignItems="center">
-      <Grid item xs={10} sm={8} md={6} lg={4}>
-        <Paper elevation={3}>
-          <Typography variant="h5" gutterBottom>
-            {title}
-          </Typography>
-          {children}
-        </Paper>
+    <Fragment>
+      <CssBaseline />
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{ height: "100vh" }}
+      >
+        <Grid item xs={10} sm={8} md={6} lg={4}>
+          <Paper
+            elevation={0}
+            sx={{ textAlign: "center", alignContent: "center" }}
+          >
+            <img src={logo} alt="StuCode logo" style={{ width: "55%" }} />
+            {children}
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
+    </Fragment>
   );
 };
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { Alert, Button, TextField } from "@mui/material";
 import * as Yup from "yup";
@@ -72,8 +73,28 @@ const SignUp = () => {
                 {error}
               </Alert>
             )}
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-              Sign up
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{
+                mt: 3,
+              }}
+            >
+              Registrarse
+            </Button>
+            <Button
+              component={Link}
+              to="/signin"
+              variant="outlined"
+              color="primary"
+              fullWidth
+              sx={{
+                mt: 2,
+              }}
+            >
+              ¿Ya tienes una cuenta? Acceder
             </Button>
           </Form>
         )}
