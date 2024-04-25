@@ -5,7 +5,7 @@ import { Alert, Button, TextField } from "@mui/material";
 import * as Yup from "yup";
 
 import AuthLayout from "../../components/authlayout/index.js";
-import AuthService from "../../services/authService.js";
+import UserService from "../../services/userService.js";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid format").required("Email is required"),
@@ -18,7 +18,7 @@ const SignUp = () => {
 
   const handleFormSubmit = async (values) => {
     try {
-      await AuthService.register(values);
+      await UserService.register(values);
     } catch (error) {
       setError(error.message);
     }

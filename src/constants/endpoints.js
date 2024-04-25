@@ -1,4 +1,4 @@
 export default {
-  REGISTER: "/auth/register",
-  LOGIN: "/auth/login",
+  REGISTER: "/user/register",
+  LOGIN: "/user/login",
 };

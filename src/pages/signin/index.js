@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import {
   Alert,
@@ -11,8 +12,7 @@ import * as Yup from "yup";
 
 import HttpClient from "../../lib/axios.js";
 import AuthLayout from "../../components/authlayout/index.js";
-import AuthService from "../../services/authService.js";
-import { Link } from "react-router-dom";
+import UserService from "../../services/userService.js";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -23,22 +23,23 @@ const validationSchema = Yup.object().shape({
 
 const SignIn = () => {
   const [error, setError] = useState("");
-  const [remember, setRemember] = useState(false);
+  const navigate = useNavigate();
+  // TODO: Implement remember me funcionality
+  // const [remember, setRemember] = useState(false);
   const initialValues = { email: "", password: "" };
 
   const handleFormSubmit = async (values) => {
     try {
       setError("");
-      const response = await AuthService.login(values);
+      const response = await UserService.login(values);
       const token = response.data;
       HttpClient.setAuthorizationToken(token);
       setError("");
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
   };
-
-  // const handleCheckbox = (event) => 
 
   return (
     <AuthLayout title="Bienvenido de nuevo!">
