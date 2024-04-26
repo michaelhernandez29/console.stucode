@@ -4,6 +4,7 @@ import Home from "./pages/home/index.js";
 import SignUp from "./pages/signup/index.js";
 import SignIn from "./pages/signin/index.js";
 import Users from "./pages/users/index.js";
+import UserDetail from "./pages/users/userdetail/index.js";
 
 const routes = [
   {
@@ -29,6 +30,10 @@ const routes = [
   {
     path: "/user",
     element: <Users />,
+  },
+  {
+    path: "/user/:id",
+    element: <UserDetail />,
   },
 ];
 

@@ -134,6 +134,22 @@ const theme = createTheme({
       textTransform: "uppercase",
     },
   },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+        },
+      },
+    },
+  },
 });
 
 export default theme;

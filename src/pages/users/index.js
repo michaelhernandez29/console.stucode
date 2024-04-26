@@ -41,12 +41,7 @@ const Users = () => {
 
   return (
     <Fragment>
-      <TextField
-        label="Search"
-        variant="outlined"
-        value={find}
-        onChange={handleSearchFind}
-      />
+      <TextField variant="outlined" value={find} onChange={handleSearchFind} />
       <List
         style={{
           display: "flex",
@@ -54,8 +49,8 @@ const Users = () => {
         }}
       >
         {users.map((user) => (
-          <Fragment>
-            <User key={user.id} user={user} />
+          <Fragment key={user.id}>
+            <User user={user} />
             <Divider variant="inset" component="li" />
           </Fragment>
         ))}
