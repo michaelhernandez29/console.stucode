@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Divider, List, TablePagination } from "@mui/material";
+import { Divider, List, TablePagination, TextField } from "@mui/material";
 
 import UserService from "../../services/userService";
 import User from "./user";
@@ -10,6 +10,19 @@ const Users = () => {
   const [limit, setLimit] = useState(Filters.LIMIT);
   const [page, setPage] = useState(Filters.PAGE);
   const [pageCount, setPageCount] = useState(0);
+  const [find, setFind] = useState("");
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const query = find ? `?find=${find}` : `?limit=${limit}&page=${page}`;
+
+      const users = await UserService.findAll(query);
+      setUsers(users.data);
+      setPageCount(users.count);
+    };
+
+    fetchUsers();
+  }, [limit, page, find]);
 
   const handleChangePage = (event, newPage) => {
     event.preventDefault();
@@ -22,20 +35,18 @@ const Users = () => {
     setPage(0);
   };
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const query = `?limit=${limit}&page=${page}`;
-      const users = await UserService.findAll(query);
-      setUsers(users.data);
-      console.log(users.count);
-      setPageCount(users.count);
-    };
-
-    fetchUsers();
-  }, [limit, page]);
+  const handleSearchFind = (event) => {
+    setFind(event.target.value);
+  };
 
   return (
     <Fragment>
+      <TextField
+        label="Search"
+        variant="outlined"
+        value={find}
+        onChange={handleSearchFind}
+      />
       <List
         style={{
           display: "flex",
