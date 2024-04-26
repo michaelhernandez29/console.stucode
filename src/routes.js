@@ -3,6 +3,7 @@ import React from "react";
 import Home from "./pages/home/index.js";
 import SignUp from "./pages/signup/index.js";
 import SignIn from "./pages/signin/index.js";
+import Users from "./pages/users/index.js";
 
 const routes = [
   {
@@ -24,6 +25,10 @@ const routes = [
   {
     path: "/article/:id",
     element: <div>Article</div>,
+  },
+  {
+    path: "/user",
+    element: <Users />,
   },
 ];
 

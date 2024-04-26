@@ -29,8 +29,18 @@ const findById = async (id) => {
   return HttpClient.get(`/user/${id}`);
 };
 
+/**
+ * Retrieves a list of users based on a query.
+ * @param {String} query - The query string for filtering or pagination.
+ * @returns {Promise<Object>} A promise that resolves to the list of users.
+ */
+const findAll = async (query) => {
+  return HttpClient.get(`${Endpoints.USER}${query}`);
+};
+
 userService.register = register;
 userService.login = login;
 userService.findById = findById;
+userService.findAll = findAll;
 
 export default userService;
