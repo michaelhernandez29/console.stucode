@@ -1,12 +1,13 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { CssBaseline, Grid, Paper } from "@mui/material";
+import { CssBaseline, Grid, Paper, ThemeProvider } from "@mui/material";
 
+import theme from "./theme";
 import logo from "../../assets/img/logo_background_purple.png";
 
 const AuthLayout = ({ children }) => {
   return (
-    <Fragment>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Grid
         container
@@ -24,7 +25,7 @@ const AuthLayout = ({ children }) => {
           </Paper>
         </Grid>
       </Grid>
-    </Fragment>
+    </ThemeProvider>
   );
 };
 

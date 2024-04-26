@@ -8,8 +8,11 @@ import AuthLayout from "../../components/authlayout/index.js";
 import UserService from "../../services/userService.js";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid format").required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  name: Yup.string().required("Este campo es obligatorio"),
+  email: Yup.string()
+    .email("Formato inválido")
+    .required("Este campo es obligatorio"),
+  password: Yup.string().required("Este campo es obligatorio"),
 });
 
 const SignUp = () => {
@@ -38,6 +41,7 @@ const SignUp = () => {
               variant="filled"
               name="name"
               fullWidth
+              required
               onChange={handleChange}
               onBlur={handleBlur}
               error={Boolean(touched.name && errors.name)}

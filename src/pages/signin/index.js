@@ -35,7 +35,7 @@ const SignIn = () => {
       const token = response.data;
       HttpClient.setAuthorizationToken(token);
       setError("");
-      navigate("/");
+      navigate("/user");
     } catch (error) {
       setError(error.message);
     }
