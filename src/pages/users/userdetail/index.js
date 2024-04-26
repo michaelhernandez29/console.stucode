@@ -25,7 +25,7 @@ const UserDetail = () => {
               p: 2,
               display: "flex",
               flexDirection: "column",
-              height: 300,
+              height: "100%",
             }}
           >
             <img
@@ -48,7 +48,7 @@ const UserDetail = () => {
               p: 2,
               display: "flex",
               flexDirection: "column",
-              height: 300,
+              height: "100%",
             }}
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
