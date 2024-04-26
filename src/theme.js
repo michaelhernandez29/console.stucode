@@ -3,10 +3,10 @@ import { createTheme } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#FFFFFF",
-      light: "#FFFFFF",
-      dark: "#FFFFFF",
-      contrastText: "#590D82",
+      main: "#590D82",
+      light: "#590D82",
+      dark: "#590D82",
+      contrastText: "#FFFFFF",
     },
     secondary: {
       main: "#FF4081",
@@ -39,17 +39,17 @@ const theme = createTheme({
       contrastText: "#FFFFFF",
     },
     background: {
-      default: "#590D82",
-      paper: "#590D82",
+      default: "#FFFFFF",
+      paper: "#FFFFFF",
     },
     text: {
-      primary: "#FFFFFF",
+      primary: "#590D82",
       secondary: "#757575",
       disabled: "#BDBDBD",
       hint: "#9E9E9E",
     },
     action: {
-      active: "#FFFFFF",
+      active: "#590D82",
       hover: "rgba(0, 0, 0, 0.08)",
       hoverOpacity: 0.08,
       selected: "rgba(0, 0, 0, 0.14)",
