@@ -38,9 +38,20 @@ const findAll = async (query) => {
   return HttpClient.get(`${Endpoints.USER}${query}`);
 };
 
+/**
+ * Deletes a user by ID.
+ * @memberof userService
+ * @param {String} id - The ID of the user to delete.
+ * @returns {Promise<void>} A promise that resolves after the user is deleted.
+ */
+const deleteById = async (id) => {
+  await HttpClient.delete(`/user/${id}`);
+};
+
 userService.register = register;
 userService.login = login;
 userService.findById = findById;
 userService.findAll = findAll;
+userService.deleteById = deleteById;
 
 export default userService;
