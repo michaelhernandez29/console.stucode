@@ -25,7 +25,6 @@ const UserDetail = () => {
               p: 2,
               display: "flex",
               flexDirection: "column",
-              height: "100%",
             }}
           >
             <img
@@ -43,31 +42,34 @@ const UserDetail = () => {
           </Paper>
         </Grid>
         <Grid item xs={8} md={8} lg={9}>
-          <Paper
-            sx={{
-              p: 2,
-              display: "flex",
-              flexDirection: "column",
-              height: "100%",
-            }}
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-            placerat justo, sit amet ultrices nisi volutpat et. Sed quis risus
-            nec turpis malesuada vehicula. Integer sodales, nisi vel convallis
-            consectetur, est purus bibendum nisi, non feugiat risus sem eget
-            lorem. Nulla facilisi. Sed at sagittis est. Morbi convallis tempus
-            ligula, nec dapibus nunc varius a. Pellentesque in justo eu sapien
-            dapibus volutpat vel et lorem. Sed elementum convallis magna nec
-            tincidunt. Fusce vitae tempor urna. Sed auctor justo a eros
-            suscipit, vel scelerisque justo fringilla. Vivamus consectetur urna
-            ac ipsum euismod interdum. Cras efficitur, odio at venenatis
-            posuere, turpis
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-            Articulos
-          </Paper>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                euismod placerat justo, sit amet ultrices nisi volutpat et. Sed
+                quis risus nec turpis malesuada vehicula. Integer sodales, nisi
+                vel convallis consectetur, est purus bibendum nisi, non feugiat
+                risus sem eget lorem. Nulla facilisi. Sed at sagittis est. Morbi
+                convallis tempus ligula, nec dapibus nunc varius a. Pellentesque
+                in justo eu sapien dapibus volutpat vel et lorem. Sed elementum
+                convallis magna nec tincidunt. Fusce vitae tempor urna. Sed
+                auctor justo a eros suscipit, vel scelerisque justo fringilla.
+                Vivamus consectetur urna ac ipsum euismod interdum. Cras
+                efficitur, odio at venenatis posuere, turpis
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+                Articulos
+              </Paper>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Container>
