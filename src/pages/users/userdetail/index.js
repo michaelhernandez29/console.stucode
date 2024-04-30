@@ -9,6 +9,8 @@ import {
   DialogTitle,
   Grid,
   Paper,
+  TextField,
+  Typography,
 } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 
@@ -21,11 +23,13 @@ const UserDetail = () => {
   const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(true);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [biography, setBiography] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
       const user = await UserService.findById(id);
       setUser(user.data);
+      setBiography(user.data.biography ?? "");
       setIsAuthenticatedUser(true);
     };
     fetchUser();
@@ -48,6 +52,15 @@ const UserDetail = () => {
     setIsDeleteDialogOpen(false);
   };
 
+  const handleEditingBiography = (event) => {
+    setBiography(event.target.value);
+  };
+
+  const handleSaveChanges = async () => {
+    await UserService.updateById(id, { biography });
+    setIsEditingMode(false);
+  };
+
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3}>
@@ -64,6 +77,25 @@ const UserDetail = () => {
               alt="Perfil"
               style={{ width: "100%", maxHeight: "80%", objectFit: "cover" }}
             />
+            <Typography
+              variant="h4"
+              sx={{ fontWeight: "bold", m: 1, textAlign: "center" }}
+            >
+              {user.name}
+            </Typography>
+            {user.jobTitle && (
+              <Typography
+                variant="h6"
+                sx={{
+                  color: "text.secondary",
+                  mb: 2,
+                  mt: 1,
+                  textAlign: "center",
+                }}
+              >
+                {user.jobTitle}
+              </Typography>
+            )}
             {isAuthenticatedUser ? (
               <Fragment>
                 <Button
@@ -104,20 +136,27 @@ const UserDetail = () => {
                   flexDirection: "column",
                 }}
               >
-                <div>
-                  {user.name}
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  euismod placerat justo, sit amet ultrices nisi volutpat et.
-                  Sed quis risus nec turpis malesuada vehicula. Integer sodales,
-                  nisi vel convallis consectetur, est purus bibendum nisi, non
-                  feugiat risus sem eget lorem. Nulla facilisi. Sed at sagittis
-                  est. Morbi convallis tempus ligula, nec dapibus nunc varius a.
-                  Pellentesque in justo eu sapien dapibus volutpat vel et lorem.
-                  Sed elementum convallis magna nec tincidunt. Fusce vitae
-                  tempor urna. Sed auctor justo a eros suscipit, vel scelerisque
-                  justo fringilla. Vivamus consectetur urna ac ipsum euismod
-                  interdum. Cras efficitur, odio at venenatis posuere, turpis
-                </div>
+                {isEditingMode ? (
+                  <TextField
+                    multiline
+                    fullWidth
+                    value={biography}
+                    onChange={handleEditingBiography}
+                  />
+                ) : (
+                  <ReactMarkdown>{biography}</ReactMarkdown>
+                )}
+
+                {isEditingMode && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ marginTop: "10px" }}
+                    onClick={handleSaveChanges}
+                  >
+                    Guardar cambios
+                  </Button>
+                )}
               </Paper>
             </Grid>
             <Grid item xs={12}>

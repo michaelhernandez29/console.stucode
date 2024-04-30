@@ -39,6 +39,16 @@ const findAll = async (query) => {
 };
 
 /**
+ * Updates a user by ID.
+ * @param {String} id - The ID of the user to update.
+ * @param {Object} data - The data to update for the user.
+ * @returns {Promise<void>} A promise that resolves to the updated user object or null if not found.
+ */
+const updateById = async (id, data) => {
+  return HttpClient.put(`${Endpoints.USER}/${id}`, data);
+};
+
+/**
  * Deletes a user by ID.
  * @memberof userService
  * @param {String} id - The ID of the user to delete.
@@ -52,6 +62,7 @@ userService.register = register;
 userService.login = login;
 userService.findById = findById;
 userService.findAll = findAll;
+userService.updateById = updateById;
 userService.deleteById = deleteById;
 
 export default userService;

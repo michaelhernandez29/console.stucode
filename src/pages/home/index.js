@@ -1,27 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { Grid, List, TablePagination } from "@mui/material";
 
-import Article from "../../components/article/index.js";
-import MainLayout from "../../components/mainlayout/index.js";
-import articleService from "../../services/articleService.js";
+import ArticleService from "../../services/articleService.js";
+import Article from "./article/index.js";
+import Filters from "../../constants/filters";
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
+  const [limit, setLimit] = useState(Filters.LIMIT);
+  const [page, setPage] = useState(Filters.PAGE);
+  const [pageCount, setPageCount] = useState(0);
+  const [find, setFind] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await articleService.findAll();
-      setArticles(response.data);
+      const query = find ? `?find=${find}` : `?limit=${limit}&page=${page}`;
+
+      const articles = await ArticleService.findAll(query);
+      setArticles(articles.data);
+      setPageCount(articles.count);
     };
 
     fetchData();
-  }, []);
+  }, [limit, page]);
+
+  const handleChangePage = (event, newPage) => {
+    event.preventDefault();
+    setPage(parseInt(newPage, 10));
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    const newLimit = parseInt(event.target.value, 10);
+    setLimit(newLimit);
+    setPage(0);
+  };
 
   return (
-    <MainLayout>
-      {articles.map((article) => (
-        <Article key={article.id} data={article} />
-      ))}
-    </MainLayout>
+    <Grid maxWidth="sx">
+      <Grid container>
+        <List
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          {articles.map((article) => (
+            <Article article={article} />
+          ))}
+        </List>
+      </Grid>
+      <TablePagination
+        component="div"
+        count={pageCount}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={limit}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Grid>
   );
 };
 

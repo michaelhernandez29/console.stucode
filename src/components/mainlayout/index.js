@@ -7,7 +7,6 @@ import { Container } from "@mui/material";
 const MainLayout = ({ children }) => {
   return (
     <Fragment>
-      <NavBar />
       <Container>{children}</Container>
     </Fragment>
   );

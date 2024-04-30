@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Avatar,
   ListItem,
@@ -6,7 +7,6 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 
 const User = ({ user }) => {
   return (
