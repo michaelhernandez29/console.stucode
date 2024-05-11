@@ -93,9 +93,7 @@ const Home = () => {
       </Box>
       <List>
         {articles.map((article) => (
-          <Fragment key={article.id}>
-            <Article article={article} />
-          </Fragment>
+          <Article key={article.id} article={article} />
         ))}
       </List>
       <TablePagination
