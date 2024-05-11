@@ -1,19 +1,19 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {
+  Box,
+  FormControl,
+  InputLabel,
   List,
+  MenuItem,
+  Select,
   TablePagination,
   TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  Box,
 } from "@mui/material";
 
-import MainLayout from "../../components/mainlayout/index.js";
-import ArticleService from "../../services/articleService.js";
 import Article from "./article/index.js";
+import ArticleService from "../../services/articleService.js";
 import Filters from "../../constants/filters";
+import MainLayout from "../../components/mainlayout/index.js";
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
