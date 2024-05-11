@@ -22,7 +22,7 @@ const Home = () => {
     };
 
     fetchData();
-  }, [limit, page]);
+  }, [limit, page, find]);
 
   const handleChangePage = (event, newPage) => {
     event.preventDefault();
