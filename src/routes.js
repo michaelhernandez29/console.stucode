@@ -5,6 +5,7 @@ import SignUp from "./pages/signup/index.js";
 import SignIn from "./pages/signin/index.js";
 import Users from "./pages/users/index.js";
 import UserDetail from "./pages/users/userdetail/index.js";
+import ArticleDetail from "./pages/home/articleDetail/index.js";
 
 const routes = [
   {
@@ -25,7 +26,7 @@ const routes = [
   },
   {
     path: "/article/:id",
-    element: <div>Article</div>,
+    element: <ArticleDetail />,
   },
   {
     path: "/user",
