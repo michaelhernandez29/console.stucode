@@ -18,6 +18,8 @@ const register = (data) => {
  * @returns {Promise} A promise resolving to the login response.
  */
 const login = (credentials) => {
+  const url = `${HttpClient.defaults.baseURL}/${Endpoints.LOGIN}`;
+  console.log("URL llamada:", url);
   return HttpClient.post(Endpoints.LOGIN, credentials);
 };
 
