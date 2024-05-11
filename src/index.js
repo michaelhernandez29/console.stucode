@@ -6,6 +6,10 @@ import routes from "./routes.js";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme.js";
 import { CssBaseline } from "@mui/material";
+import moment from "moment";
+import "moment/locale/es";
+
+moment.locale("es");
 
 const router = createBrowserRouter(routes);
 

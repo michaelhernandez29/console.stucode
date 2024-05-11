@@ -1,6 +1,16 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { List, TablePagination, TextField } from "@mui/material";
+import {
+  List,
+  TablePagination,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Box,
+} from "@mui/material";
 
+import MainLayout from "../../components/mainlayout/index.js";
 import ArticleService from "../../services/articleService.js";
 import Article from "./article/index.js";
 import Filters from "../../constants/filters";
@@ -11,10 +21,14 @@ const Home = () => {
   const [page, setPage] = useState(Filters.PAGE);
   const [pageCount, setPageCount] = useState(0);
   const [find, setFind] = useState("");
+  const [sort, setSort] = useState("a-z");
 
   useEffect(() => {
     const fetchData = async () => {
-      const query = find ? `?find=${find}` : `?limit=${limit}&page=${page}`;
+      let query = `?limit=${limit}&page=${page}&orderBy=${sort}`;
+      if (find) {
+        query += `&find=${find}`;
+      }
 
       const articles = await ArticleService.findAll(query);
       setArticles(articles.data);
@@ -22,7 +36,7 @@ const Home = () => {
     };
 
     fetchData();
-  }, [limit, page, find]);
+  }, [find, limit, page, sort]);
 
   const handleChangePage = (event, newPage) => {
     event.preventDefault();
@@ -39,18 +53,49 @@ const Home = () => {
     setFind(event.target.value);
   };
 
+  const handleSortChange = (event) => {
+    setSort(event.target.value);
+  };
+
   return (
-    <Fragment>
-      <TextField variant="outlined" value={find} onChange={handleSearchFind} />
-      <List
-        style={{
+    <MainLayout>
+      <Box
+        sx={{
           display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 2,
         }}
       >
+        <TextField
+          variant="standard"
+          value={find}
+          onChange={handleSearchFind}
+          size="normal"
+          placeholder="Buscar..."
+          label="Buscar"
+        />
+        <FormControl variant="standard" sx={{ width: "200px" }}>
+          <InputLabel id="order-by">Ordenar por</InputLabel>
+          <Select
+            labelId="order-by"
+            id="order-by"
+            label="Order by"
+            value={sort}
+            onChange={handleSortChange}
+          >
+            <MenuItem value="a-z">A-Z</MenuItem>
+            <MenuItem value="z-a">Z-A</MenuItem>
+            <MenuItem value="updated-at-asc">Más antiguos</MenuItem>
+            <MenuItem value="updated-at-desc">Más recientes</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <List>
         {articles.map((article) => (
-          <Article article={article} />
+          <Fragment key={article.id}>
+            <Article article={article} />
+          </Fragment>
         ))}
       </List>
       <TablePagination
@@ -61,7 +106,7 @@ const Home = () => {
         rowsPerPage={limit}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Fragment>
+    </MainLayout>
   );
 };
 
