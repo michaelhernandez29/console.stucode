@@ -64,7 +64,7 @@ const Home = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: 2,
+          marginBottom: 4,
         }}
       >
         <TextField
