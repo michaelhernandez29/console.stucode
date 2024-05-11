@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Grid, List, TablePagination } from "@mui/material";
+import { List, TablePagination, TextField } from "@mui/material";
 
 import ArticleService from "../../services/articleService.js";
 import Article from "./article/index.js";
@@ -35,21 +35,24 @@ const Home = () => {
     setPage(0);
   };
 
+  const handleSearchFind = (event) => {
+    setFind(event.target.value);
+  };
+
   return (
-    <Grid maxWidth="sx">
-      <Grid container>
-        <List
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-          }}
-        >
-          {articles.map((article) => (
-            <Article article={article} />
-          ))}
-        </List>
-      </Grid>
+    <Fragment>
+      <TextField variant="outlined" value={find} onChange={handleSearchFind} />
+      <List
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+      >
+        {articles.map((article) => (
+          <Article article={article} />
+        ))}
+      </List>
       <TablePagination
         component="div"
         count={pageCount}
@@ -58,7 +61,7 @@ const Home = () => {
         rowsPerPage={limit}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Grid>
+    </Fragment>
   );
 };
 
