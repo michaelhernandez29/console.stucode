@@ -29,6 +29,7 @@ const ArticleDetail = () => {
   const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(true);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -62,6 +63,21 @@ const ArticleDetail = () => {
   };
 
   const handleSaveChanges = async () => {
+    const newErrors = {};
+
+    if (!editedArticle.title) {
+      newErrors.title = "El título es obligatorio";
+    }
+
+    if (!editedArticle.content) {
+      newErrors.content = "El contenido es obligatorio";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     const editedArticleData = await ArticleService.updateById(
       id,
       editedArticle,
@@ -171,6 +187,9 @@ const ArticleDetail = () => {
                               title: e.target.value,
                             })
                           }
+                          required
+                          error={!!errors.title}
+                          helperText={errors.title}
                         />
                         <TextField
                           label="Contenido"
@@ -185,6 +204,9 @@ const ArticleDetail = () => {
                               content: e.target.value,
                             })
                           }
+                          required
+                          error={!!errors.content}
+                          helperText={errors.content}
                         />
                         <Button
                           onClick={handleSaveChanges}
