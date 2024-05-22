@@ -6,6 +6,7 @@ import SignIn from "./pages/signin/index.js";
 import Users from "./pages/users/index.js";
 import UserDetail from "./pages/users/userdetail/index.js";
 import ArticleDetail from "./pages/home/articleDetail/index.js";
+import UserArticles from "./pages/users/userarticles/index.js";
 
 const routes = [
   {
@@ -25,16 +26,20 @@ const routes = [
     element: <div>Settings</div>,
   },
   {
-    path: "/article/:id",
+    path: "/articles/:id",
     element: <ArticleDetail />,
   },
   {
-    path: "/user",
+    path: "/users",
     element: <Users />,
   },
   {
-    path: "/user/:id",
+    path: "/users/:id",
     element: <UserDetail />,
+  },
+  {
+    path: "/users/:id/articles",
+    element: <UserArticles />,
   },
 ];
 

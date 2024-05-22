@@ -11,7 +11,7 @@ const Article = ({ article }) => {
 
   return (
     <Link
-      to={`/article/${article.id}`}
+      to={`/articles/${article.id}`}
       style={{
         textDecoration: "none",
       }}

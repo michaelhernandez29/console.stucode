@@ -10,7 +10,7 @@ import {
 
 const User = ({ user }) => {
   return (
-    <Link to={`/user/${user.id}`} style={{ textDecoration: "none" }}>
+    <Link to={`/users/${user.id}`} style={{ textDecoration: "none" }}>
       <ListItem
         key={user.id}
         sx={{
