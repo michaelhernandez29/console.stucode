@@ -34,6 +34,11 @@ const ArticleDetail = () => {
     const fetchArticle = async () => {
       const article = await ArticleService.findById(id);
       setArticle(article.data);
+      setEditedArticle({
+        image: article.data.image,
+        title: article.data.title,
+        content: article.data.content,
+      });
       setIsAuthenticatedUser(true);
     };
     fetchArticle();
