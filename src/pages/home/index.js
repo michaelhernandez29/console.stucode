@@ -26,9 +26,10 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const encodedFind = encodeURIComponent(find);
       let query = `?limit=${limit}&page=${page}&orderBy=${sort}`;
       if (find) {
-        query += `&find=${find}`;
+        query += `&find=${encodedFind}`;
       }
 
       const articles = await ArticleService.findAll(query);

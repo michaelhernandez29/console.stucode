@@ -27,9 +27,10 @@ const Users = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      const encodedFind = encodeURIComponent(find);
       let query = `?limit=${limit}&page=${page}&orderBy=${sort}`;
       if (find) {
-        query += `&find=${find}`;
+        query += `&find=${encodedFind}`;
       }
       const users = await UserService.findAll(query);
       setUsers(users.data);
