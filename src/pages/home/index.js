@@ -8,6 +8,7 @@ import {
   Select,
   TablePagination,
   TextField,
+  Typography,
 } from "@mui/material";
 
 import Article from "./article/index.js";
@@ -62,48 +63,75 @@ const Home = () => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 4,
+          flexDirection: "column",
+          minHeight: "100vh",
         }}
       >
-        <TextField
-          variant="standard"
-          value={find}
-          onChange={handleSearchFind}
-          size="normal"
-          placeholder="Buscar..."
-          label="Buscar"
-        />
-        <FormControl variant="standard" sx={{ width: "200px" }}>
-          <InputLabel id="order-by">Ordenar por</InputLabel>
-          <Select
-            labelId="order-by"
-            id="order-by"
-            label="Order by"
-            value={sort}
-            onChange={handleSortChange}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 4,
+          }}
+        >
+          <TextField
+            variant="standard"
+            value={find}
+            onChange={handleSearchFind}
+            size="normal"
+            placeholder="Buscar..."
+            label="Buscar"
+          />
+          <FormControl variant="standard" sx={{ width: "200px" }}>
+            <InputLabel id="order-by">Ordenar por</InputLabel>
+            <Select
+              labelId="order-by"
+              id="order-by"
+              label="Order by"
+              value={sort}
+              onChange={handleSortChange}
+            >
+              <MenuItem value="a-z">A-Z</MenuItem>
+              <MenuItem value="z-a">Z-A</MenuItem>
+              <MenuItem value="updated-at-asc">Más antiguos</MenuItem>
+              <MenuItem value="updated-at-desc">Más recientes</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
+        {articles.length === 0 ? (
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            <MenuItem value="a-z">A-Z</MenuItem>
-            <MenuItem value="z-a">Z-A</MenuItem>
-            <MenuItem value="updated-at-asc">Más antiguos</MenuItem>
-            <MenuItem value="updated-at-desc">Más recientes</MenuItem>
-          </Select>
-        </FormControl>
+            <Typography variant="h5">No se han encontrado artículos</Typography>
+          </Box>
+        ) : (
+          <List sx={{ flexGrow: 1 }}>
+            {articles.map((article) => (
+              <Article key={article.id} article={article} />
+            ))}
+          </List>
+        )}
+
+        <TablePagination
+          component="div"
+          count={pageCount}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={limit}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage="Resultados por página"
+          labelDisplayedRows={({ from, to, count }) =>
+            `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`
+          }
+        />
       </Box>
-      <List>
-        {articles.map((article) => (
-          <Article key={article.id} article={article} />
-        ))}
-      </List>
-      <TablePagination
-        component="div"
-        count={pageCount}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={limit}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
     </MainLayout>
   );
 };
