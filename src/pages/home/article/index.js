@@ -3,6 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import defaultImage from "../../../assets/img/no_image_available.png";
+
 const Article = ({ article }) => {
   const limitedContent =
     article.content.length > 500
@@ -51,7 +53,7 @@ const Article = ({ article }) => {
         </Box>
         <CardMedia
           component="img"
-          src={article.image}
+          src={article.image || defaultImage}
           title={article.image}
           style={{ width: "20%", objectFit: "cover" }}
         />
