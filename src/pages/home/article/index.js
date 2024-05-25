@@ -7,8 +7,8 @@ import defaultImage from "../../../assets/img/no_image_available.png";
 
 const Article = ({ article }) => {
   const limitedContent =
-    article.content.length > 500
-      ? article.content.substring(0, 500) + "..."
+    article.content.length > 200
+      ? article.content.substring(0, 200) + "..."
       : article.content;
 
   return (
@@ -16,6 +16,9 @@ const Article = ({ article }) => {
       to={`/articles/${article.id}`}
       style={{
         textDecoration: "none",
+        maxHeight: "250px",
+        overflow: "hidden",
+        display: "block",
       }}
     >
       <Card
@@ -55,7 +58,17 @@ const Article = ({ article }) => {
           component="img"
           src={article.image || defaultImage}
           title={article.image}
-          style={{ width: "20%", objectFit: "cover" }}
+          sx={{
+            width: "20%",
+            position: "relative",
+            "& img": {
+              maxWidth: "100%",
+              maxHeight: "100%",
+              width: "640px",
+              height: "480px",
+              objectFit: "cover",
+            },
+          }}
         />
       </Card>
     </Link>
