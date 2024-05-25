@@ -1,84 +1,107 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Container,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import GroupIcon from "@mui/icons-material/Group";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import PersonIcon from "@mui/icons-material/Person";
+import LoginIcon from "@mui/icons-material/Login";
+import RegisterIcon from "@mui/icons-material/Create";
+import { styled } from "@mui/system";
 
-import logo from "../../assets/img/logo_navbar.png";
-
-const pages = ["Artículos", "Red"];
-const settings = ["Profile", "Account", "Logout"];
+const StyledLink = styled(Link)({
+  textDecoration: "none",
+  color: "inherit",
+  display: "flex",
+  alignItems: "center",
+  padding: "10px",
+  "&:hover": {
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderRadius: "5px",
+  },
+});
 
 const NavBar = () => {
   return (
-    <AppBar position="static" color="transparent" elevation={1}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar position="static" color="primary" sx={{ marginBottom: "20px" }}>
+      <Toolbar>
+        <Box sx={{ mx: "auto" }}>
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
               alignItems: "center",
-              flexGrow: 1,
-              margin: "0 auto",
+              gap: "10px",
             }}
           >
-            <Link to="/">
-              <img
-                src={logo}
-                alt="StuCode logo"
-                style={{ width: "25%", padding: "10px" }}
-              />
-            </Link>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexGrow: 1,
-              margin: "0 auto",
-            }}
-          >
-            {pages.map((page) => (
-              <Link
-                key={page}
-                to={"/" + page.toLowerCase()}
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  margin: "0 20px",
-                }}
-              >
-                <Typography variant="h6">{page}</Typography>
-              </Link>
-            ))}
-          </Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <Tooltip title="Open settings">
-              <IconButton sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <StyledLink to="/">
+              <IconButton color="inherit">
+                <HomeIcon />
               </IconButton>
-            </Tooltip>
-            <Menu sx={{ mt: "45px" }} id="menu-appbar">
-              {settings.map((setting) => (
-                <MenuItem key={setting}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              <Typography
+                variant="button"
+                sx={{ color: "white", fontSize: "16px" }}
+              >
+                Inicio
+              </Typography>
+            </StyledLink>
+            <StyledLink to="/users">
+              <IconButton color="inherit">
+                <GroupIcon />
+              </IconButton>
+              <Typography
+                variant="button"
+                sx={{ color: "white", fontSize: "16px" }}
+              >
+                Red
+              </Typography>
+            </StyledLink>
+            <StyledLink to="/favoritos">
+              <IconButton color="inherit">
+                <FavoriteIcon />
+              </IconButton>
+              <Typography
+                variant="button"
+                sx={{ color: "white", fontSize: "16px" }}
+              >
+                Favoritos
+              </Typography>
+            </StyledLink>
+            <StyledLink to="/perfil">
+              <IconButton color="inherit">
+                <PersonIcon />
+              </IconButton>
+              <Typography
+                variant="button"
+                sx={{ color: "white", fontSize: "16px" }}
+              >
+                Mi Perfil
+              </Typography>
+            </StyledLink>
+            <StyledLink to="/login">
+              <IconButton color="inherit">
+                <LoginIcon />
+              </IconButton>
+              <Typography
+                variant="button"
+                sx={{ color: "white", fontSize: "16px" }}
+              >
+                Login
+              </Typography>
+            </StyledLink>
+            <StyledLink to="/register">
+              <IconButton color="inherit">
+                <RegisterIcon />
+              </IconButton>
+              <Typography
+                variant="button"
+                sx={{ color: "white", fontSize: "16px" }}
+              >
+                Register
+              </Typography>
+            </StyledLink>
           </Box>
-        </Toolbar>
-      </Container>
+        </Box>
+      </Toolbar>
     </AppBar>
   );
 };
