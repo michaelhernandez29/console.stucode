@@ -65,7 +65,6 @@ const Home = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          minHeight: "100vh",
         }}
       >
         <Box
@@ -120,18 +119,25 @@ const Home = () => {
           </List>
         )}
 
-        <TablePagination
-          component="div"
-          count={pageCount}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={limit}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelRowsPerPage="Resultados por página"
-          labelDisplayedRows={({ from, to, count }) =>
-            `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`
-          }
-        />
+        <Box
+          sx={{
+            marginTop: "1rem",
+            marginBottom: "1rem",
+          }}
+        >
+          <TablePagination
+            component="div"
+            count={pageCount}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={limit}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            labelRowsPerPage="Resultados por página"
+            labelDisplayedRows={({ from, to, count }) =>
+              `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`
+            }
+          />
+        </Box>
       </Box>
     </MainLayout>
   );

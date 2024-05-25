@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import {
   Box,
   Divider,
@@ -65,7 +65,6 @@ const Users = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          minHeight: "100vh",
         }}
       >
         <Box
@@ -121,18 +120,25 @@ const Users = () => {
           </List>
         )}
 
-        <TablePagination
-          component="div"
-          count={pageCount}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={limit}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelRowsPerPage="Resultados por página"
-          labelDisplayedRows={({ from, to, count }) =>
-            `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`
-          }
-        />
+        <Box
+          sx={{
+            marginTop: "1rem",
+            marginBottom: "1rem",
+          }}
+        >
+          <TablePagination
+            component="div"
+            count={pageCount}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={limit}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            labelRowsPerPage="Resultados por página"
+            labelDisplayedRows={({ from, to, count }) =>
+              `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`
+            }
+          />
+        </Box>
       </Box>
     </MainLayout>
   );
