@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { Alert, Button, TextField } from "@mui/material";
 import * as Yup from "yup";
@@ -16,19 +16,21 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const initialValues = { name: "", email: "", password: "" };
 
   const handleFormSubmit = async (values) => {
     try {
       await UserService.register(values);
+      navigate("/signin");
     } catch (error) {
       setError(error.message);
     }
   };
 
   return (
-    <AuthLayout title="Sign Up">
+    <AuthLayout>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

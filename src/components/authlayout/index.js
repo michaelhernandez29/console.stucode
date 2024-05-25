@@ -20,7 +20,7 @@ const AuthLayout = ({ children }) => {
             elevation={0}
             sx={{ textAlign: "center", alignContent: "center" }}
           >
-            <img src={logo} alt="StuCode logo" style={{ width: "55%" }} />
+            <img src={logo} alt="StuCode logo" style={{ width: "70%" }} />
             {children}
           </Paper>
         </Grid>
