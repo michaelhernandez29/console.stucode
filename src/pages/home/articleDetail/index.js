@@ -16,6 +16,7 @@ import ReactMarkdown from "react-markdown";
 
 import ArticleService from "../../../services/articleService";
 import MainLayout from "../../../components/mainlayout";
+import defaultImage from "../../../assets/img/no_image_available.png";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -97,11 +98,19 @@ const ArticleDetail = () => {
               flexDirection: "column",
             }}
           >
-            <img
-              src={article.image}
-              alt="Perfil"
-              style={{ width: "100%", maxHeight: "80%", objectFit: "cover" }}
-            />
+            {article.image ? (
+              <img
+                src={article.image}
+                alt="Perfil"
+                style={{ width: "100%", maxHeight: "80%", objectFit: "cover" }}
+              />
+            ) : (
+              <img
+                src={defaultImage}
+                alt="Imagen por defecto"
+                style={{ width: "100%", maxHeight: "80%", objectFit: "cover" }}
+              />
+            )}
             {isAuthenticatedUser ? (
               <Fragment>
                 <Button

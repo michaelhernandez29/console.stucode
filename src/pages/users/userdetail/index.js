@@ -18,6 +18,7 @@ import ReactMarkdown from "react-markdown";
 
 import ArticleService from "../../../services/articleService";
 import UserService from "../../../services/userService";
+import defaultImage from "../../../assets/img/no_image_available.png";
 
 const UserDetail = () => {
   const { id } = useParams();
@@ -93,11 +94,19 @@ const UserDetail = () => {
               flexDirection: "column",
             }}
           >
-            <img
-              src={user.logo}
-              alt="Perfil"
-              style={{ width: "100%", maxHeight: "80%", objectFit: "cover" }}
-            />
+            {user.logo ? (
+              <img
+                src={user.logo}
+                alt="Perfil"
+                style={{ width: "100%", maxHeight: "80%", objectFit: "cover" }}
+              />
+            ) : (
+              <img
+                src={defaultImage}
+                alt="Perfil"
+                style={{ width: "100%", maxHeight: "80%", objectFit: "cover" }}
+              />
+            )}
             <Typography
               variant="h4"
               sx={{ fontWeight: "bold", m: 1, textAlign: "center" }}
