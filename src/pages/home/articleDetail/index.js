@@ -18,7 +18,7 @@ import ArticleService from "../../../services/articleService";
 import MainLayout from "../../../components/mainlayout";
 import defaultImage from "../../../assets/img/no_image_available.png";
 import { useAuth } from "../../../contexts/authContext";
-import likeService from "../../../services/likeService";
+import LikeService from "../../../services/likeService";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -51,7 +51,7 @@ const ArticleDetail = () => {
       setIsAuthenticatedUser(isLogged);
 
       if (isLogged) {
-        const likeStatus = await likeService.findUserArticleLike(
+        const likeStatus = await LikeService.findUserArticleLike(
           article.data.id,
           userId,
         );
@@ -106,10 +106,10 @@ const ArticleDetail = () => {
 
   const handleLikeArticle = async () => {
     if (hasLiked) {
-      await likeService.unlikeArticle(article.id, userId);
+      await LikeService.unlikeArticle(article.id, userId);
       setHasLiked(false);
     } else {
-      await likeService.likeArticle(article.id, userId);
+      await LikeService.likeArticle(article.id, userId);
       setHasLiked(true);
     }
   };

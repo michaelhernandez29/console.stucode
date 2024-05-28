@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Button,
-  Container,
   Dialog,
   DialogActions,
   DialogContent,
@@ -21,6 +20,7 @@ import UserService from "../../../services/userService";
 import defaultImage from "../../../assets/img/no_image_available.png";
 import MainLayout from "../../../components/mainlayout";
 import { useAuth } from "../../../contexts/authContext";
+import LikeService from "../../../services/likeService";
 
 const UserDetail = () => {
   const { id } = useParams();
@@ -38,6 +38,7 @@ const UserDetail = () => {
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [totalArticles, setTotalArticles] = useState(0);
+  const [totalLikes, setTotalLikes] = useState(0);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -53,6 +54,8 @@ const UserDetail = () => {
       });
       let query = `?userId=${user.data.id}`;
       const articles = await ArticleService.findAll(query);
+      const likes = await LikeService.findUserLikes(user.data.id);
+      setTotalLikes(likes.count);
       setTotalArticles(articles.count);
       setIsAuthenticatedUser(isLogged);
     };
@@ -200,8 +203,20 @@ const UserDetail = () => {
               </Link>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                Articulos
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Typography variant="h2" sx={{ fontWeight: "bold", mb: 1 }}>
+                  {totalLikes}
+                </Typography>
+                <Typography variant="subtitle1">Me gusta</Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} md={4}>
