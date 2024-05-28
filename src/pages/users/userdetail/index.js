@@ -19,9 +19,12 @@ import ReactMarkdown from "react-markdown";
 import ArticleService from "../../../services/articleService";
 import UserService from "../../../services/userService";
 import defaultImage from "../../../assets/img/no_image_available.png";
+import MainLayout from "../../../components/mainlayout";
+import { useAuth } from "../../../contexts/authContext";
 
 const UserDetail = () => {
   const { id } = useParams();
+  const { isLogged, userId } = useAuth();
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [editedUser, setEditedUser] = useState({
@@ -30,7 +33,8 @@ const UserDetail = () => {
     jobTitle: "",
     biography: "",
   });
-  const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(true);
+  const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(isLogged);
+  const [canEditUser, setCanEditUser] = useState(false);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [totalArticles, setTotalArticles] = useState(0);
@@ -40,6 +44,7 @@ const UserDetail = () => {
     const fetchUser = async () => {
       const user = await UserService.findById(id);
       setUser(user.data);
+      setCanEditUser(user.data.id === userId);
       setEditedUser({
         logo: user.data.logo,
         name: user.data.name,
@@ -49,10 +54,10 @@ const UserDetail = () => {
       let query = `?userId=${user.data.id}`;
       const articles = await ArticleService.findAll(query);
       setTotalArticles(articles.count);
-      setIsAuthenticatedUser(true);
+      setIsAuthenticatedUser(isLogged);
     };
     fetchUser();
-  }, [id, totalArticles]);
+  }, [id, totalArticles, userId, isLogged]);
 
   const handleEditingMode = () => {
     setIsEditingMode(!isEditingMode);
@@ -84,7 +89,7 @@ const UserDetail = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+    <MainLayout>
       <Grid container spacing={3}>
         <Grid item xs={4} md={4} lg={3}>
           <Paper
@@ -126,7 +131,7 @@ const UserDetail = () => {
                 {user.jobTitle}
               </Typography>
             )}
-            {isAuthenticatedUser ? (
+            {isAuthenticatedUser && canEditUser ? (
               <Fragment>
                 <Button
                   variant="contained"
@@ -311,7 +316,7 @@ const UserDetail = () => {
           </Modal>
         </Fragment>
       )}
-    </Container>
+    </MainLayout>
   );
 };
 

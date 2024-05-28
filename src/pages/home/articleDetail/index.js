@@ -17,9 +17,12 @@ import ReactMarkdown from "react-markdown";
 import ArticleService from "../../../services/articleService";
 import MainLayout from "../../../components/mainlayout";
 import defaultImage from "../../../assets/img/no_image_available.png";
+import { useAuth } from "../../../contexts/authContext";
+import likeService from "../../../services/likeService";
 
 const ArticleDetail = () => {
   const { id } = useParams();
+  const { isLogged, userId } = useAuth();
   const navigate = useNavigate();
   const [article, setArticle] = useState({});
   const [editedArticle, setEditedArticle] = useState({
@@ -27,10 +30,12 @@ const ArticleDetail = () => {
     title: "",
     content: "",
   });
-  const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(true);
+  const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(isLogged);
+  const [canEditArticle, setCanEditArticle] = useState(false);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [errors, setErrors] = useState({});
+  const [hasLiked, setHasLiked] = useState(false);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -41,10 +46,22 @@ const ArticleDetail = () => {
         title: article.data.title,
         content: article.data.content,
       });
-      setIsAuthenticatedUser(true);
+
+      setCanEditArticle(article.data.userId === userId);
+      setIsAuthenticatedUser(isLogged);
+
+      if (isLogged) {
+        const likeStatus = await likeService.findUserArticleLike(
+          article.data.id,
+          userId,
+        );
+        setHasLiked(likeStatus);
+      } else {
+        setHasLiked(false);
+      }
     };
     fetchArticle();
-  }, [id]);
+  }, [id, userId, isLogged]);
 
   const handleEditingMode = () => {
     setIsEditingMode(!isEditingMode);
@@ -87,6 +104,16 @@ const ArticleDetail = () => {
     setIsEditingMode(false);
   };
 
+  const handleLikeArticle = async () => {
+    if (hasLiked) {
+      await likeService.unlikeArticle(article.id, userId);
+      setHasLiked(false);
+    } else {
+      await likeService.likeArticle(article.id, userId);
+      setHasLiked(true);
+    }
+  };
+
   return (
     <MainLayout>
       <Grid container spacing={3}>
@@ -111,7 +138,7 @@ const ArticleDetail = () => {
                 style={{ width: "100%", maxHeight: "80%", objectFit: "cover" }}
               />
             )}
-            {isAuthenticatedUser ? (
+            {isAuthenticatedUser && canEditArticle ? (
               <Fragment>
                 <Button
                   variant="contained"
@@ -129,15 +156,16 @@ const ArticleDetail = () => {
                   Eliminar artículo
                 </Button>
               </Fragment>
-            ) : (
+            ) : isAuthenticatedUser ? (
               <Button
                 variant="contained"
                 color="primary"
                 style={{ marginTop: "10px" }}
+                onClick={handleLikeArticle}
               >
-                Me gusta
+                {hasLiked ? "Ya no me gusta" : "Me gusta"}
               </Button>
-            )}
+            ) : null}
           </Paper>
         </Grid>
         <Grid item xs={8} md={8} lg={9}>

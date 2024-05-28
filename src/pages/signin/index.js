@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import HttpClient from "../../lib/axios.js";
 import AuthLayout from "../../components/authlayout/index.js";
 import UserService from "../../services/userService.js";
+import { useAuth } from "../../contexts/authContext.js";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -19,6 +20,7 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const initialValues = { email: "", password: "" };
+  const { login } = useAuth();
 
   const handleFormSubmit = async (values) => {
     try {
@@ -27,6 +29,7 @@ const SignIn = () => {
       const token = response.data;
       HttpClient.setAuthorizationToken(token);
       setError("");
+      login(token);
       navigate("/");
     } catch (error) {
       setError(error.message);
