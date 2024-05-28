@@ -158,7 +158,7 @@ const ArticleDetail = () => {
               </Fragment>
             ) : isAuthenticatedUser ? (
               <Button
-                variant="contained"
+                variant={hasLiked ? "outlined" : "contained"}
                 color="primary"
                 style={{ marginTop: "10px" }}
                 onClick={handleLikeArticle}
