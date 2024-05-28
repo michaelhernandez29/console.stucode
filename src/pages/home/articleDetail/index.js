@@ -55,7 +55,7 @@ const ArticleDetail = () => {
           article.data.id,
           userId,
         );
-        setHasLiked(likeStatus);
+        setHasLiked(likeStatus.count === 1);
       } else {
         setHasLiked(false);
       }
