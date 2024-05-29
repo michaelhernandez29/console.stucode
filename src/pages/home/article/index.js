@@ -32,28 +32,26 @@ const Article = ({ article }) => {
           },
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column", border: "none" }}>
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              sx={{ fontWeight: "bold" }}
-            >
-              {article.title}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              sx={{ marginTop: 1, marginBottom: 1 }}
-            >
-              {`${moment(article.updatedAt).format("LLLL")}`}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {limitedContent}
-            </Typography>
-          </CardContent>
-        </Box>
+        <CardContent sx={{ flexGrow: 1 }}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ fontWeight: "bold" }}
+          >
+            {article.title}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            color="text.secondary"
+            sx={{ marginTop: 1, marginBottom: 1 }}
+          >
+            {`${moment(article.updatedAt).format("LLLL")}`}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {limitedContent}
+          </Typography>
+        </CardContent>
         <CardMedia
           component="img"
           src={article.image || defaultImage}

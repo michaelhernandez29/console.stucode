@@ -2,6 +2,10 @@ import HttpClient from "../lib/axios";
 
 const articleService = {};
 
+const create = (data) => {
+  return HttpClient.post(`/article`, data);
+};
+
 /**
  * Retrieves all articles.
  * @param {String} query - The query string for filtering or pagination.
@@ -39,6 +43,7 @@ const deleteById = async (id) => {
   await HttpClient.delete(`/article/${id}`);
 };
 
+articleService.create = create;
 articleService.findAll = findAll;
 articleService.findById = findById;
 articleService.updateById = updateById;

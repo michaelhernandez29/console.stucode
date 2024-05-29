@@ -1,6 +1,18 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  IconButton,
+  Dialog,
+  TextField,
+  Button,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+} from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -8,9 +20,11 @@ import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from "@mui/icons-material/Login";
 import RegisterIcon from "@mui/icons-material/Create";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CreateIcon from "@mui/icons-material/Create";
 import { styled } from "@mui/system";
 
 import { useAuth } from "../../contexts/authContext.js";
+import ArticleService from "../../services/articleService.js";
 
 const StyledLink = styled(Link)({
   textDecoration: "none",
@@ -26,6 +40,49 @@ const StyledLink = styled(Link)({
 
 const NavBar = () => {
   const { isLogged, logout, userId } = useAuth();
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [newArticle, setNewArticle] = useState({
+    image: "", // Nueva propiedad 'image'
+    title: "",
+    content: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const handleCreateDialogOpen = () => {
+    setIsCreateDialogOpen(true);
+  };
+
+  const handleCreateDialogClose = () => {
+    setIsCreateDialogOpen(false);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewArticle({
+      ...newArticle,
+      [name]: value,
+    });
+  };
+
+  const handleCreateArticle = async () => {
+    const newErrors = {};
+
+    if (!newArticle.title) {
+      newErrors.title = "El título es obligatorio";
+    }
+
+    if (!newArticle.content) {
+      newErrors.content = "El contenido es obligatorio";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    await ArticleService.create({ ...newArticle, userId });
+    handleCreateDialogClose();
+  };
 
   return (
     <AppBar position="static" color="primary" sx={{ marginBottom: "20px" }}>
@@ -98,6 +155,17 @@ const NavBar = () => {
                     Logout
                   </Typography>
                 </StyledLink>
+                <StyledLink to="#" onClick={handleCreateDialogOpen}>
+                  <IconButton color="inherit">
+                    <CreateIcon />
+                  </IconButton>
+                  <Typography
+                    variant="button"
+                    sx={{ color: "white", fontSize: "16px" }}
+                  >
+                    Crear Artículo
+                  </Typography>
+                </StyledLink>
               </Fragment>
             ) : (
               <Fragment>
@@ -128,6 +196,56 @@ const NavBar = () => {
           </Box>
         </Box>
       </Toolbar>
+      {/* Diálogo para crear un nuevo artículo */}
+      <Dialog open={isCreateDialogOpen} onClose={handleCreateDialogClose}>
+        <DialogTitle>Crear Artículo</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            id="image"
+            name="image"
+            label="Imagen URL"
+            fullWidth
+            value={newArticle.image}
+            onChange={handleInputChange}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="title"
+            name="title"
+            label="Título"
+            fullWidth
+            value={newArticle.title}
+            onChange={handleInputChange}
+            required
+            error={!!errors.title}
+            helperText={errors.title}
+          />
+          <TextField
+            margin="dense"
+            id="content"
+            name="content"
+            label="Contenido"
+            fullWidth
+            multiline
+            rows={4}
+            value={newArticle.content}
+            onChange={handleInputChange}
+            required
+            error={!!errors.content}
+            helperText={errors.content}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCreateDialogClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleCreateArticle} color="primary">
+            Crear
+          </Button>
+        </DialogActions>
+      </Dialog>
     </AppBar>
   );
 };
