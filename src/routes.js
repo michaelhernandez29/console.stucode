@@ -13,6 +13,7 @@ const routes = [
   {
     path: "/",
     element: <Home />,
+    errorElement: <Home />,
   },
   {
     path: "/signup",

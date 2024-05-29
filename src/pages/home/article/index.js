@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -57,13 +57,11 @@ const Article = ({ article }) => {
           src={article.image || defaultImage}
           title={article.image}
           sx={{
-            width: "200px",
-            position: "relative",
+            maxWidth: "200px",
+            height: "150px",
             "& img": {
-              maxWidth: "100%",
-              maxHeight: "100%",
-              width: "640px",
-              height: "480px",
+              width: "100%",
+              height: "100%",
               objectFit: "cover",
             },
           }}
