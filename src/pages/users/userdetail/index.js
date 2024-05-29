@@ -203,21 +203,28 @@ const UserDetail = () => {
               </Link>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  textAlign: "center",
+              <Link
+                to={`/users/${user.id}/favorites`}
+                style={{
+                  textDecoration: "none",
                 }}
               >
-                <Typography variant="h2" sx={{ fontWeight: "bold", mb: 1 }}>
-                  {totalLikes}
-                </Typography>
-                <Typography variant="subtitle1">Me gusta</Typography>
-              </Paper>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <Typography variant="h2" sx={{ fontWeight: "bold", mb: 1 }}>
+                    {totalLikes}
+                  </Typography>
+                  <Typography variant="subtitle1">Me gusta</Typography>
+                </Paper>
+              </Link>
             </Grid>
             <Grid item xs={12} md={4}>
               <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>

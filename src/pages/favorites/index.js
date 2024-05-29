@@ -103,9 +103,6 @@ const Favorites = () => {
             </Select>
           </FormControl>
         </Box>
-        <Typography variant="h4" gutterBottom align="left">
-          Mis artículos favoritos
-        </Typography>
         {articles.length === 0 ? (
           <Box
             sx={{
