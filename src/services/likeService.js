@@ -37,8 +37,8 @@ const unlikeArticle = async (articleId, userId) => {
  * @param {number} userId - The ID of the user.
  * @returns {Promise<any>} A promise that resolves to the response data from the server.
  */
-const findUserLikes = async (userId) => {
-  return HttpClient.get(`/like?userId=${userId}`);
+const findUserLikes = async (query) => {
+  return HttpClient.get(`/like?${query}`);
 };
 
 likeService.likeArticle = likeArticle;

@@ -12,15 +12,13 @@ import {
   Typography,
 } from "@mui/material";
 
-import Article from "../../home/article/index.js";
-import ArticleService from "../../../services/articleService.js";
-import UserService from "../../../services/userService.js";
-import Filters from "../../../constants/filters.js";
-import MainLayout from "../../../components/mainlayout/index.js";
+import Article from "../home/article/index.js";
+import Filters from "../../constants/filters.js";
+import MainLayout from "../../components/mainlayout/index.js";
+import LikeService from "../../services/likeService.js";
 
-const UserArticles = () => {
+const Favorites = () => {
   const { id } = useParams();
-  const [user, setUser] = useState({});
   const [articles, setArticles] = useState([]);
   const [limit, setLimit] = useState(Filters.LIMIT);
   const [page, setPage] = useState(Filters.PAGE);
@@ -30,17 +28,15 @@ const UserArticles = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userResponse = await UserService.findById(id);
-      setUser(userResponse.data);
-
-      let query = `?userId=${userResponse.data.id}&limit=${limit}&page=${page}&orderBy=${sort}`;
+      let query = `userId=${id}&limit=${limit}&page=${page}&orderBy=${sort}`;
       if (find) {
         query += `&find=${encodeURIComponent(find)}`;
       }
 
-      const articlesResponse = await ArticleService.findAll(query);
-      setArticles(articlesResponse.data);
-      setPageCount(articlesResponse.count);
+      const likes = await LikeService.findUserLikes(query);
+      const articles = likes.data.map((like) => like.article);
+      setArticles(articles);
+      setPageCount(likes.count);
     };
 
     fetchData();
@@ -108,7 +104,7 @@ const UserArticles = () => {
           </FormControl>
         </Box>
         <Typography variant="h4" gutterBottom align="left">
-          Artículos de {user.name}
+          Mis artículos favoritos
         </Typography>
         {articles.length === 0 ? (
           <Box
@@ -141,4 +137,4 @@ const UserArticles = () => {
   );
 };
 
-export default UserArticles;
+export default Favorites;

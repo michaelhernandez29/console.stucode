@@ -61,7 +61,7 @@ const NavBar = () => {
               </Typography>
             </StyledLink>
             {isLogged && (
-              <StyledLink to="/favoritos">
+              <StyledLink to={`/users/${userId}/favorites`}>
                 <IconButton color="inherit">
                   <FavoriteIcon />
                 </IconButton>

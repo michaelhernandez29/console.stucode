@@ -54,7 +54,7 @@ const UserDetail = () => {
       });
       let query = `?userId=${user.data.id}`;
       const articles = await ArticleService.findAll(query);
-      const likes = await LikeService.findUserLikes(user.data.id);
+      const likes = await LikeService.findUserLikes(`userId=${user.data.id}`);
       setTotalLikes(likes.count);
       setTotalArticles(articles.count);
       setIsAuthenticatedUser(isLogged);
@@ -72,7 +72,7 @@ const UserDetail = () => {
 
   const handleConfirmDelete = async () => {
     await UserService.deleteById(id);
-    navigate("/user");
+    navigate("/users");
   };
 
   const handleCancelDelete = () => {
