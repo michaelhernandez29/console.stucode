@@ -57,7 +57,7 @@ const Article = ({ article }) => {
           src={article.image || defaultImage}
           title={article.image}
           sx={{
-            width: "20%",
+            width: "200px",
             position: "relative",
             "& img": {
               maxWidth: "100%",
