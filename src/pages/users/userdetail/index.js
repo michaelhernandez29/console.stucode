@@ -170,14 +170,16 @@ const UserDetail = () => {
                 </Button>
               </Fragment>
             ) : (
-              <Button
-                variant={hasFollow ? "outlined" : "contained"}
-                color="primary"
-                style={{ marginTop: "10px" }}
-                onClick={handleLikeUser}
-              >
-                {hasFollow ? "Siguiendo" : "Seguir"}
-              </Button>
+              isAuthenticatedUser && (
+                <Button
+                  variant={hasFollow ? "outlined" : "contained"}
+                  color="primary"
+                  style={{ marginTop: "10px" }}
+                  onClick={handleLikeUser}
+                >
+                  {hasFollow ? "Siguiendo" : "Seguir"}
+                </Button>
+              )
             )}
           </Paper>
         </Grid>
