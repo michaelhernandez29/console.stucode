@@ -8,6 +8,7 @@ import UserDetail from "./pages/users/userdetail/index.js";
 import ArticleDetail from "./pages/home/articleDetail/index.js";
 import UserArticles from "./pages/users/userarticles/index.js";
 import Favorites from "./pages/favorites/index.js";
+import Followers from "./pages/followers/index.js";
 
 const routes = [
   {
@@ -46,6 +47,10 @@ const routes = [
   {
     path: "users/:id/favorites",
     element: <Favorites />,
+  },
+  {
+    path: "users/:id/followers",
+    element: <Followers />,
   },
 ];
 

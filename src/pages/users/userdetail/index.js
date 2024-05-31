@@ -39,12 +39,15 @@ const UserDetail = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [totalArticles, setTotalArticles] = useState(0);
   const [totalLikes, setTotalLikes] = useState(0);
+  const [totalFollowers, setTotalFollowers] = useState(0);
   const [errors, setErrors] = useState({});
+  const [hasFollow, setHasFollow] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
       const user = await UserService.findById(id);
       setUser(user.data);
+      setTotalFollowers(user.data.followers.length);
       setCanEditUser(user.data.id === userId);
       setEditedUser({
         logo: user.data.logo,
@@ -58,9 +61,10 @@ const UserDetail = () => {
       setTotalLikes(likes.count);
       setTotalArticles(articles.count);
       setIsAuthenticatedUser(isLogged);
+      setHasFollow(user.data.followers.includes(Number.parseInt(userId, 10)));
     };
     fetchUser();
-  }, [id, totalArticles, userId, isLogged]);
+  }, [id, totalArticles, userId, isLogged, hasFollow]);
 
   const handleEditingMode = () => {
     setIsEditingMode(!isEditingMode);
@@ -89,6 +93,19 @@ const UserDetail = () => {
     setUser({ ...editedUserData.data });
     setIsEditingMode(false);
     setErrors({});
+  };
+
+  const handleLikeUser = async () => {
+    let followers = user.followers;
+    if (hasFollow) {
+      followers = followers.filter((follower) => follower !== userId);
+      await UserService.updateById(id, { followers });
+      setHasFollow(false);
+    } else {
+      followers.push(Number.parseInt(userId, 10));
+      await UserService.updateById(id, { followers });
+      setHasFollow(true);
+    }
   };
 
   return (
@@ -154,11 +171,12 @@ const UserDetail = () => {
               </Fragment>
             ) : (
               <Button
-                variant="contained"
+                variant={hasFollow ? "outlined" : "contained"}
                 color="primary"
                 style={{ marginTop: "10px" }}
+                onClick={handleLikeUser}
               >
-                Seguir
+                {hasFollow ? "Siguiendo" : "Seguir"}
               </Button>
             )}
           </Paper>
@@ -227,9 +245,28 @@ const UserDetail = () => {
               </Link>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                Articulos
-              </Paper>
+              <Link
+                to={`/users/${user.id}/followers`}
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <Typography variant="h2" sx={{ fontWeight: "bold", mb: 1 }}>
+                    {totalFollowers}
+                  </Typography>
+                  <Typography variant="subtitle1">Seguidores</Typography>
+                </Paper>
+              </Link>
             </Grid>
           </Grid>
         </Grid>
