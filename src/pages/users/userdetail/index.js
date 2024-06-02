@@ -24,7 +24,7 @@ import LikeService from "../../../services/likeService";
 
 const UserDetail = () => {
   const { id } = useParams();
-  const { isLogged, userId } = useAuth();
+  const { isLogged, userId, logout } = useAuth();
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [editedUser, setEditedUser] = useState({
@@ -76,6 +76,7 @@ const UserDetail = () => {
 
   const handleConfirmDelete = async () => {
     await UserService.deleteById(id);
+    logout();
     navigate("/users");
   };
 
