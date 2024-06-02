@@ -51,7 +51,7 @@ const Followers = () => {
       );
 
       setUsers(updatedUsers);
-      setPageCount(users.count);
+      setPageCount(updatedUsers.length);
     };
 
     fetchUsers();
