@@ -77,7 +77,7 @@ const UserDetail = () => {
   const handleConfirmDelete = async () => {
     await UserService.deleteById(id);
     logout();
-    navigate("/users");
+    navigate("/register");
   };
 
   const handleCancelDelete = () => {
